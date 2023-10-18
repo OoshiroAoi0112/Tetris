@@ -14,5 +14,5 @@
 *プロトタイプ定義
 ********************************/
 int TitleScene_Initialize(void);
-void TitileScene_Update(void);
+void TitleScene_Update(void);
 void TitleScene_Draw(void);

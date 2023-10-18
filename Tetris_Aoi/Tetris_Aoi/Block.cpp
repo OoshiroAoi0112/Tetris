@@ -128,7 +128,7 @@ void check_line(void);             //ブロックの横一列確認処理
 ********************************/
 int Block_Initialize(void)
 {
-	int ret = 0;
+	int ret = 0;     //戻り値
 	int i = 0;
 	
 	//ブロック画像の読み込み
@@ -278,7 +278,7 @@ void Block_Draw(void)
 * 引数：なし
 *戻り値：TRUE（ブロックの生成ができる）,FALSE（生成負荷）
 ********************************/
-int Get_Generate(void)
+int Get_GenerateFlg(void)
 {
 	return Generate_Flg;
 }
@@ -424,9 +424,9 @@ void change_block(void)
 	else
 	{
 		Stock_Flg = TRUE;
-		for (i = 0; i < BLOCK_TROUT_SIZE; i++);
+		for (i = 0; i < BLOCK_TROUT_SIZE; i++)
 		{
-			for (j = 0; j < BLOCK_TROUT_SIZE; j++);
+			for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 			{
 				Stock[i][j] = DropBlock[i][j];
 			}
@@ -491,6 +491,31 @@ void turn_block(int clockwise)
 		}
 	} while (check_overlap(DropBlock_X, DropBlock_Y) == FALSE);
 	PlaySoundMem(SoundEffect[2], DX_PLAYTYPE_BACK, TRUE);
+}
+
+/********************************
+*ブロック機能：ブロックの交換処理
+* 引数：回転させる向き（0:時計回り　1:反時計回り）
+*戻り値：なし
+********************************/
+int check_overlap(int x, int y)
+{
+	int i, j;      //ループカウンタ
+
+	for (i = 0; i < BLOCK_TROUT_SIZE; i++)
+	{
+		for (j = 0; j < BLOCK_TROUT_SIZE; j++)
+		{
+			if (DropBlock[i][j] != E_BLOCK_EMPTY)
+			{
+				if (Field[i + y][j + x] != E_BLOCK_EMPTY)
+				{
+					return FALSE;
+				}
+			}
+		}
+	}
+	return TRUE;
 }
 
 /********************************
