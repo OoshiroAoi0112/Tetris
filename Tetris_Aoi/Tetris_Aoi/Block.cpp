@@ -241,7 +241,7 @@ void Block_Draw(void)
 	//フィールドのブロックを描画
 	for (i = 0; i < FIELD_HEIGHT; i++)
 	{
-		for (j = 0; j < BLOCK_TROUT_SIZE; j++)
+		for (j = 0; j < FIELD_WIDTH; j++)
 		{
 			if (Field[i][j] != E_BLOCK_WALL)
 			{
@@ -255,11 +255,13 @@ void Block_Draw(void)
 		for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 		{
 			//次のブロックを描画
-			DrawGraph(BLOCK_SIZE * j + BLOCK_NEXT_POS_X, BLOCK_SIZE * i +
-				BLOCK_NEXT_POS_Y, BlockImage[Stock[i][j]], TRUE);
+			DrawGraph(BLOCK_SIZE * j + BLOCK_NEXT_POS_X,
+				BLOCK_SIZE * i + BLOCK_NEXT_POS_Y, 
+				BlockImage[Next[i][j]], TRUE);
 			//ストックされたブロックを描画
-			DrawGraph(BLOCK_SIZE * j + BLOCK_STOCK_POS_X, BLOCK_SIZE * i +
-				BLOCK_STOCK_POS_Y, BlockImage[Stock[i][j]], TRUE);
+			DrawGraph(BLOCK_SIZE * j + BLOCK_STOCK_POS_X, 
+				BLOCK_SIZE * i + BLOCK_STOCK_POS_Y,
+				BlockImage[Stock[i][j]], TRUE);
 		}
 	}
 	//落ちてくるブロックの描画
@@ -267,8 +269,8 @@ void Block_Draw(void)
 	{
 		for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 		{
-			DrawGraph(BLOCK_SIZE * j + BLOCK_NEXT_POS_X, BLOCK_SIZE * i +
-				BLOCK_NEXT_POS_Y, BlockImage[Stock[i][j]], TRUE);
+			DrawGraph((DropBlock_X + j) * BLOCK_SIZE, (DropBlock_Y + i) * BLOCK_SIZE,
+				BlockImage[DropBlock[i][j]], TRUE);
 		}
 	}
 }
@@ -466,7 +468,7 @@ void turn_block(int clockwise)
 			{
 				for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 				{
-					temp[3-j][3] = DropBlock[i][j];
+					temp[3-j][i] = DropBlock[i][j];
 				}
 			}
 		}
@@ -490,13 +492,14 @@ void turn_block(int clockwise)
 			DropBlock_X++;
 		}
 	} while (check_overlap(DropBlock_X, DropBlock_Y) == FALSE);
+
 	PlaySoundMem(SoundEffect[2], DX_PLAYTYPE_BACK, TRUE);
 }
 
 /********************************
-*ブロック機能：ブロックの交換処理
-* 引数：回転させる向き（0:時計回り　1:反時計回り）
-*戻り値：なし
+*ブロック機能：範囲外チェック処理
+*引　数：落下ブロックの座標(x,y)
+*戻り値：TRUE(範囲内),FALSE(範囲内)
 ********************************/
 int check_overlap(int x, int y)
 {
