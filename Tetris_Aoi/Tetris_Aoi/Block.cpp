@@ -570,7 +570,7 @@ void check_line(void)
 			DeleteLine++;
 
 			//ˆê’i‰º‚°‚é
-			for (k = i; k > 0; k--);
+			for (k = i; k > 0; k--)
 			{
 				for (j = 1; j < FIELD_WIDTH; j++)
 				{
