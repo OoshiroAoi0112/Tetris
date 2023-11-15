@@ -68,4 +68,3 @@ int Get_EndTime(void)
 	}
 	return FALSE;
 }
-

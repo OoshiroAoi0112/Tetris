@@ -57,7 +57,7 @@ int RankingScene_Initialize(void)
 
 	switch (DispMode)
 	{
-	case RANKING_INPUT_MODE:
+		case RANKING_INPUT_MODE:
 			Cursor.x = 0;
 			Cursor.y = 0;
 			name_num = 0;
@@ -187,7 +187,7 @@ void file_write(void)
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fprintf(fp, "%2d,%[^,],%10d\n", Ranking_Data[i].rank,
+			fprintf(fp, "%2d,%s,%10d\n", Ranking_Data[i].rank,
 				Ranking_Data[i].name, Ranking_Data[i].score);
 		}
 		fclose(fp);
@@ -288,7 +288,7 @@ void ranking_input_name(void)
 				c = '0' + Cursor.x;
 				New_Score.name[name_num++] = c;
 			}
-			else if (Cursor.x = -10)
+			else if (Cursor.x ==10)
 			{
 				name_num--;
 				New_Score.name[name_num] = '\n';

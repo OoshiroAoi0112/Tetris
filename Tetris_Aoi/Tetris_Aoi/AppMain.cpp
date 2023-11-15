@@ -34,7 +34,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstance, _I
 	LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	//タイトルの変更
-	SetMainWindowText("テトリス");
+	SetMainWindowText("寿限無寿限無ウンコ投げ機一昨日の新ちゃんのパンツ新八");
 
 	//ウィンドウモードで起動
 	ChangeWindowMode(TRUE);
